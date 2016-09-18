@@ -16,7 +16,7 @@
 
 class Message
 {
-
+public:
     typedef std::vector<Signal> signals_t;
     //Name of the Message
     std::string name;
@@ -29,7 +29,7 @@ class Message
     //List containing all Signals which are present in this Message
     signals_t signals;
 
-public:
+
     typedef signals_t::const_iterator const_iterator;
     //Overload of operator>> to enable parsing of Messages from streams of DBC-Files
     friend std::istream& operator>>(std::istream& in, Message& msg);
