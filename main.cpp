@@ -6,14 +6,9 @@
 #include <algorithm>
 #include <unistd.h>
 
-#include "message.hpp"
+#include "global.hpp"
 
-using namespace std;
 
-Message Msg;
-// Store the words from the two files into these two vectors
-vector<string> DataArray;
-vector<string> QueryArray;
 
 void MovetoMsg(int case_no, int LoopIndex, string token);
 
@@ -21,9 +16,6 @@ int main()
 {
     std::string line;
     std::string delimiter = " ";
-    int BO_Count = 0;
-
-
 
     ifstream myfile("BO_MSCAN.dbc");
     ifstream qfile("BO_MSCAN.dbc");
@@ -48,7 +40,7 @@ int main()
             // cout << "First value of DataArray [" << i << "] = " << DataArray[i] << std::endl;
             size_t pos = 0;
             std::string token;
-            int case_counter = 0;
+
             while((pos = DataArray[i].find(delimiter)) != std::string::npos)
             {
 
@@ -58,9 +50,18 @@ int main()
                 if(token == "BO_")
                 {
                     BO_Count++;
+                    BO_FLAG = true;
                 }
-                case_counter++;
-                MovetoMsg(case_counter,i,token);
+                else if(token == "SG_")
+                {
+                    SG_Count++;
+                    SG_FLAG = true;
+                }
+                if(BO_FLAG)
+                {
+                    BGcase_counter++;
+                    MovetoMsg(BGcase_counter,i,token);
+                }
 
                 //cout << "Length of DataArray [" << i << "] = " << DataArray[i].length() << std::endl;
                 //cout << "value of DataArray [" << i << "] = " << DataArray[i] << std::endl;
